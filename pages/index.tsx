@@ -1,31 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
 export default function Home() {
   const [codice, setCodice] = useState("");
-const [quantita, setQuantita] = useState("");
-const [localita, setLocalita] = useState("");
-const [prezzoStimato, setPrezzoStimato] = useState<number | null>(null);
+  const [quantita, setQuantita] = useState("");
+  const [localita, setLocalita] = useState("");
+  const [prezzoStimato, setPrezzoStimato] = useState<number | null>(null);
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const listino: Record<string, number> = {
-    "19.12.12": 145,
-    "20.03.01": 98.5,
-    "17.05.04": 123,
-    "15.01.06": 110.25,
+    const listino: Record<string, number> = {
+      "19.12.12": 145,
+      "20.03.01": 98.5,
+      "17.05.04": 123,
+      "15.01.06": 110.25,
+    };
+
+    const prezzoUnitario = listino[codice.trim()];
+    if (!prezzoUnitario || !quantita) {
+      setPrezzoStimato(null);
+      return;
+    }
+
+    const totale = prezzoUnitario * parseFloat(quantita);
+    setPrezzoStimato(parseFloat(totale.toFixed(2)));
   };
 
-  const prezzoUnitario = listino[codice.trim()];
-  if (!prezzoUnitario || !quantita) {
-    setPrezzoStimato(null);
-    return;
-  }
-
-  const totale = prezzoUnitario * parseFloat(quantita);
-  setPrezzoStimato(parseFloat(totale.toFixed(2)));
-};
   return (
     <div className="relative min-h-screen w-full bg-white text-gray-900">
       {/* Navbar */}
@@ -49,74 +51,74 @@ const handleSubmit = (e: React.FormEvent) => {
         </div>
       </header>
 
+      {/* Immagine Hero con testo */}
       <div className="relative h-[90vh] w-full">
-  <Image
-    src="https://images.unsplash.com/photo-1599310121373-2d06db1cd042?auto=format&fit=crop&w=1600&q=80"
-    alt="Gestione rifiuti sostenibile"
-    layout="fill"
-    objectFit="cover"
-    quality={100}
-  />
-  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white px-4">
-    <h1 className="text-5xl font-bold drop-shadow">
-      La prima borsa CER con Intelligenza Artificiale
-    </h1>
-    <p className="mt-4 text-xl max-w-2xl drop-shadow">
-      Quotazioni ambientali in tempo reale. Brokeraggio rifiuti smart e sostenibile.
-    </p>
-  </div>
-</div>
+        <Image
+          src="https://images.unsplash.com/photo-1599310121373-2d06db1cd042?auto=format&fit=crop&w=1600&q=80"
+          alt="Gestione rifiuti sostenibile"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        />
+        <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white px-4">
+          <h1 className="text-5xl font-bold drop-shadow">
+            La prima borsa CER con Intelligenza Artificiale
+          </h1>
+          <p className="mt-4 text-xl max-w-2xl drop-shadow">
+            Quotazioni ambientali in tempo reale. Brokeraggio rifiuti smart e sostenibile.
+          </p>
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="mt-8 max-w-6xl mx-auto px-4">
-        {/* Form quotazione + borsa */}
         <div className="flex flex-col md:flex-row gap-6">
           {/* Form */}
           <div className="bg-white rounded-2xl shadow-lg p-6 md:w-1/2">
             <h2 className="text-xl font-semibold mb-4">Richiedi una quotazione</h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
-  <div>
-    <label className="block text-sm font-medium">Codice CER</label>
-    <input
-      type="text"
-      className="w-full p-2 rounded border"
-      placeholder="Es. 19.12.12"
-      value={codice}
-      onChange={(e) => setCodice(e.target.value)}
-    />
-  </div>
-  <div>
-    <label className="block text-sm font-medium">Quantità (tonnellate)</label>
-    <input
-      type="number"
-      className="w-full p-2 rounded border"
-      placeholder="Es. 30"
-      value={quantita}
-      onChange={(e) => setQuantita(e.target.value)}
-    />
-  </div>
-  <div>
-    <label className="block text-sm font-medium">Località</label>
-    <input
-      type="text"
-      className="w-full p-2 rounded border"
-      placeholder="Es. Torino"
-      value={localita}
-      onChange={(e) => setLocalita(e.target.value)}
-    />
-  </div>
-  <button
-    type="submit"
-    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-  >
-    Ottieni quotazione
-  </button>
-{prezzoStimato !== null && (
-  <div className="mt-4 text-green-700 font-semibold">
-    Prezzo stimato: €{(prezzoStimato).toFixed(2)}
-  </div>
-)}
-</form>
+              <div>
+                <label className="block text-sm font-medium">Codice CER</label>
+                <input
+                  type="text"
+                  className="w-full p-2 rounded border"
+                  placeholder="Es. 19.12.12"
+                  value={codice}
+                  onChange={(e) => setCodice(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Quantità (tonnellate)</label>
+                <input
+                  type="number"
+                  className="w-full p-2 rounded border"
+                  placeholder="Es. 30"
+                  value={quantita}
+                  onChange={(e) => setQuantita(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Località</label>
+                <input
+                  type="text"
+                  className="w-full p-2 rounded border"
+                  placeholder="Es. Torino"
+                  value={localita}
+                  onChange={(e) => setLocalita(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              >
+                Ottieni quotazione
+              </button>
+
+              {prezzoStimato !== null && (
+                <div className="mt-4 text-green-700 font-semibold">
+                  Prezzo stimato: €{prezzoStimato.toFixed(2)}
+                </div>
+              )}
             </form>
           </div>
 
