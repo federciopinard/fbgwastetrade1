@@ -27,13 +27,13 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="relative h-[90vh] w-full">
-        <Image
-          src="https://images.unsplash.com/photo-1600585152434-7e84b008f3a7"
-          alt="Green technology"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-        />
+  <Image
+    src="https://images.unsplash.com/photo-1600585152434-7e84b008f3a7"
+    alt="Green technology"
+    fill
+    style={{ objectFit: "cover" }}
+    quality={100}
+  />
         <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white px-4">
           <h1 className="text-5xl font-bold drop-shadow">La prima borsa CER con Intelligenza Artificiale</h1>
           <p className="mt-4 text-xl max-w-2xl drop-shadow">
